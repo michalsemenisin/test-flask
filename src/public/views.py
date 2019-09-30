@@ -1,10 +1,10 @@
 """
 Logic for dashboard related routes
 """
-from flask import Blueprint, render_template
+from flask import Blueprint, render_template, flash
 from .forms import LogUserForm, secti,masoform
 from ..data.database import db
-from ..data.models import LogUser
+from ..data.models import LogUser, Child, Parent
 blueprint = Blueprint('public', __name__)
 
 @blueprint.route('/', methods=['GET'])
@@ -60,3 +60,12 @@ def chart():
     labels = ["January", "February", "March", "April", "May", "June", "July", "August"]
     values = [10, 9, 8, 7, 6, 4, 7, 8]
     return render_template('public/chart.tmpl', values=values, labels=labels, legend=legend)
+
+@blueprint.route('/vstup_rodic', methods=['GET','POST'])
+def rodic():
+    from .forms import ValidaceRodic
+    form = ValidaceRodic()
+    if form.validate_on_submit():
+        Parent.create(**form.data)
+        flash(message="Ulozeno",category="info")
+    return render_template('public/rodic.tmpl', form=form)

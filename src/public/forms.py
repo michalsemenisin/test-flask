@@ -44,3 +44,7 @@ class secti(Form):
 class masoform(Form):
     typ=SelectField('Typ', choices=[(1, "Hovezi"), (2, "Veprove")], default=2)
 
+class ValidaceRodic(Form):
+    prijmeni = TextField("prijmeni",validators=[InputRequired(message="You cant leave this empty")])
+    pohlavi = IntegerField(validators=[InputRequired])
+

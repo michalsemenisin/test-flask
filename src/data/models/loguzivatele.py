@@ -33,7 +33,7 @@ class Child(CRUDModel):
     parent_id = Column(Integer, ForeignKey('parent.id'))
     jmeno = Column(String, nullable=False, index=True)
 
-class Child(CRUDModel):
+class Parent(CRUDModel):
     __tablename__ = 'parent'
     __table_args__ = {'sqlite_autoincrement': True}
     id = Column(Integer, primary_key=True)
